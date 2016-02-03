@@ -10,6 +10,7 @@ public class DriveWithJoystick extends CommandBase {
     public DriveWithJoystick() {
         // Use requires() here to declare subsystem dependencies
         requires(chassis);
+        requires(sensorBase);
     }
 
     // Called just before this Command runs the first time
@@ -19,6 +20,7 @@ public class DriveWithJoystick extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	chassis.driveWithJoystick(OI.getJoystick());
+    	sensorBase.printCurrents();
     }
 
     // Make this return true when this Command no longer needs to run execute()

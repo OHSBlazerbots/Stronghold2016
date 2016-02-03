@@ -3,10 +3,10 @@ package org.usfirst.frc.team3807.robot.subsystems;
 import org.usfirst.frc.team3807.robot.commands.DriveWithJoystick;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -30,19 +30,27 @@ public class Chassis extends Subsystem {
 		drive = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
 	}
 
-	
 	public void drive(double speed, double turn) {
-		drive.arcadeDrive(speed * .5, turn * .35);
+		drive.arcadeDrive(speed, turn);
 	}
 
-	//getting user input with joysticks
+	// getting user input with joysticks
 	public void driveWithJoystick(Joystick joystick) {
-		double turn = joystick.getZ();
-        //Drive is the y
-        double move = joystick.getY();
-        if (drive != null) {
-            drive(-move * (((joystick.getThrottle() + 1) * .5) + 1), -turn);
-        }
+		double turn = -joystick.getZ();
+		// Drive is the y
+		double move = joystick.getY();
+		// if (drive != null) {
+		// throttle determines speed
+		// drive(-move * (((joystick.getThrottle() + 1) * .5) + 1), -turn);
+		drive(move, turn);
+		System.out.println("Move: " + move);
+		System.out.println("Turn: " + turn);
+		System.out.println("Encoder Value");
+		
+		//Sets values to SmartDashBoard
+		SmartDashboard.putDouble("Move", move);
+		SmartDashboard.putDouble("Turn", turn);
+		// }
 	}
 
 	public void initDefaultCommand() {
@@ -50,8 +58,7 @@ public class Chassis extends Subsystem {
 		setDefaultCommand(new DriveWithJoystick());
 	}
 
-	public void Halt()
-	{
+	public void Halt() {
 		frontLeft.set(0);
 		frontRight.set(0);
 		backLeft.set(0);
