@@ -25,10 +25,15 @@ public class SensorBase extends Subsystem {
 	{
 		bia = new BuiltInAccelerometer();
 		pdp = new PowerDistributionPanel();
+		
+		//creates encoder
+		if(RobotMap.INNER_ENCODER_A != -1 && RobotMap.INNER_ENCODER_B != -1 &&
+				RobotMap.OUTER_ENCODER_A != -1 && RobotMap.OUTER_ENCODER_B != -1){
 		innerEncoder = new Encoder(RobotMap.INNER_ENCODER_A,RobotMap.INNER_ENCODER_B);
 		outerEncoder = new Encoder(RobotMap.OUTER_ENCODER_A,RobotMap.OUTER_ENCODER_B);
 		innerAngle = innerEncoder.get();
 		outerAngle = outerEncoder.get();
+		}
 	}
 	
     public void initDefaultCommand() {
@@ -81,31 +86,36 @@ public class SensorBase extends Subsystem {
 //    	return pdp.getCurrent(2);
 //    }
     
+    //"elbow" angle
     public double getInnerEncoderVal()
     {
-
+    	if(innerEncoder == null)
+    		return 0; 
     	return innerEncoder.get();
     }
     
+    //"wrist" angle
     public double getOuterEncoderVal()
     {
-    	
+    	if(outerEncoder == null)
+    		return 0;
     	return outerEncoder.get();
     }
     
     
-    //NEED TO FIGURE OUT ANGLES~
-    //Must be in radians!!!! (*(PI/180))
+     //Must be in radians!!!! (*(PI/180))
     public double getInnerAngle()
     {
     	return ((2*Math.PI)/497) * getInnerEncoderVal();
     }
     
+    //returns the outer angle in radians
     public double getOuterAngle()
     {
     	return ((2*Math.PI)/497) * getInnerEncoderVal();
     }
     
+    //prints the current values on SmartDashboard
     public void printCurrents()
     {
     	//used to print the currents on the PDB...not working :(
@@ -122,8 +132,8 @@ public class SensorBase extends Subsystem {
 //    	SmartDashboard.putDouble("Motor Left Back Current", getMotorCurrentLeftBack());
     	
     	SmartDashboard.putDouble("Inner Encoder", getInnerEncoderVal());
-    	SmartDashboard.putDouble("Inner Angle", getInnerAngle());
-    	SmartDashboard.putDouble("Outer Angle", getOuterAngle());
+    	SmartDashboard.putDouble("Inner Angle (elbow)", getInnerAngle());
+    	SmartDashboard.putDouble("Outer Angle (wrist)", getOuterAngle());
     }
 }
 

@@ -21,7 +21,7 @@ public abstract class CommandBase extends Command {
     
     public static Chassis chassis;
     public static SensorBase  sensorBase;
-    //public static Arm arm;
+    public static Arm arm;
     public static OI oi;
 
     public static void init() {
@@ -33,7 +33,7 @@ public abstract class CommandBase extends Command {
         
         chassis = new Chassis(RobotMap.FRONT_LEFT, RobotMap.FRONT_RIGHT, RobotMap.BACK_LEFT, RobotMap.BACK_RIGHT);
         sensorBase = new SensorBase();
-       // arm = new Arm(RobotMap.ARM_MOTOR_LONG, RobotMap.ARM_MOTOR_SHORT);
+        arm = new Arm(RobotMap.ARM_MOTOR_LONG, RobotMap.ARM_MOTOR_SHORT);
         //OI always instantiated LAST
         oi = new OI();
 
