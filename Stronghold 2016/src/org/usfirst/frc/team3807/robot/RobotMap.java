@@ -15,12 +15,12 @@ public class RobotMap {
 	public static int BACK_RIGHT = 5;
 	
 	//IDs for the arm motors
-	public static int ARM_MOTOR_SHORT = 2;
-	public static int ARM_MOTOR_LONG = 3; 
+	public static int WRIST_MOTOR = 2; //outside
+	public static int ELBOW_MOTOR = 3;  //inside
 	
 	//IDs for the joysticks
-	public static int CODRIVER_JOYSTICK_PORT = 1;
-	public static int CODRIVER_JOYSTICK_PORT2= 2; 
+	public static int CODRIVER_JOYSTICK_PORT = 2;
+	public static int CODRIVER_JOYSTICK_PORT2= 3; 
 	public static int JOYSTICK_PORT = 0;
 	
 	//DIO ports 

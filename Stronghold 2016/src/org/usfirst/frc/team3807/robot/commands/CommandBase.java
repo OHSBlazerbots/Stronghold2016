@@ -33,7 +33,7 @@ public abstract class CommandBase extends Command {
         
         chassis = new Chassis(RobotMap.FRONT_LEFT, RobotMap.FRONT_RIGHT, RobotMap.BACK_LEFT, RobotMap.BACK_RIGHT);
         sensorBase = new SensorBase();
-        arm = new Arm(RobotMap.ARM_MOTOR_LONG, RobotMap.ARM_MOTOR_SHORT);
+        arm = new Arm(RobotMap.ELBOW_MOTOR, RobotMap.WRIST_MOTOR);
         //OI always instantiated LAST
         oi = new OI();
 

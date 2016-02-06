@@ -37,6 +37,8 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		CommandBase.init();
 		
+		auto = new Auto();
+		
 		//auto = new Auto();
 		autoChooser= new SendableChooser();
 		
