@@ -132,6 +132,7 @@ public class SensorBase extends Subsystem {
 //    	SmartDashboard.putDouble("Motor Left Back Current", getMotorCurrentLeftBack());
     	
     	SmartDashboard.putDouble("Inner Encoder", getInnerEncoderVal());
+    	SmartDashboard.putDouble("Outer Encoder", getOuterEncoderVal());
     	SmartDashboard.putDouble("Inner Angle (elbow)", getInnerAngle());
     	SmartDashboard.putDouble("Outer Angle (wrist)", getOuterAngle());
     }
