@@ -91,7 +91,7 @@ public class SensorBase extends Subsystem {
     {
     	if(innerEncoder == null)
     		return 0; 
-    	return innerEncoder.get();
+    	return -innerEncoder.get();
     }
     
     //"wrist" angle
@@ -99,7 +99,7 @@ public class SensorBase extends Subsystem {
     {
     	if(outerEncoder == null)
     		return 0;
-    	return outerEncoder.get();
+    	return -outerEncoder.get();
     }
     
     
@@ -112,8 +112,34 @@ public class SensorBase extends Subsystem {
     //returns the outer angle in radians
     public double getOuterAngle()
     {
-    	return ((2*Math.PI)/497) * getInnerEncoderVal();
+    	return ((2*Math.PI)/497) * getOuterEncoderVal();
     }
+    
+    public double getInnerDegrees()
+    {
+    	return getInnerAngle() * (180/Math.PI);
+    }
+    
+    public double getOuterDegrees()
+    {
+    	return getOuterAngle() * (180/Math.PI);
+    }
+    
+  //checks to see if the arm goes outside of the 15" limit
+  	public boolean perimeterChecker(){
+  		
+  		double angleInner = getInnerAngle();
+  		double angleOuter = getOuterAngle();
+  		
+  		//if greater than 120 degrees
+  		if(angleInner >= (2*Math.PI/3))
+  			return true;
+  		//if outside of perimeter (See math notes)
+  		else if(30*Math.sin(angleInner-(Math.PI/2)) + (15*Math.cos(angleInner-angleOuter)) > 15)
+  			return true;
+  		
+  		return false;
+  	}
     
     //prints the current values on SmartDashboard
     public void printCurrents()
@@ -133,8 +159,11 @@ public class SensorBase extends Subsystem {
     	
     	SmartDashboard.putDouble("Inner Encoder", getInnerEncoderVal());
     	SmartDashboard.putDouble("Outer Encoder", getOuterEncoderVal());
-    	SmartDashboard.putDouble("Inner Angle (elbow)", getInnerAngle());
-    	SmartDashboard.putDouble("Outer Angle (wrist)", getOuterAngle());
+    	SmartDashboard.putDouble("Inner Angle (elbow)", getInnerDegrees());
+    	SmartDashboard.putDouble("Outer Angle (wrist)", getOuterDegrees());
+    	SmartDashboard.putBoolean("Outside 15?", perimeterChecker());
     }
+    
+    
 }
 
