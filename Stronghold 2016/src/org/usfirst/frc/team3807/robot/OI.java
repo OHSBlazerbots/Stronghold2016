@@ -29,7 +29,7 @@ public class OI {
 		//armMotor.whenReleased(new RunArmWhenPressed(0));
 		
 		goToAngle90 = new JoystickButton(joystick, 12);
-		goToAngle90.whenPressed(new GoToAngle());
+		goToAngle90.whenPressed(new GoToAngle(10));
 	
     }
 	

@@ -16,9 +16,9 @@ public class SensorBase extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-	BuiltInAccelerometer bia;
-	PowerDistributionPanel pdp;
-	Encoder innerEncoder, outerEncoder;
+	private BuiltInAccelerometer bia;
+	private PowerDistributionPanel pdp;
+	private Encoder innerEncoder, outerEncoder;
 	double innerAngle, outerAngle;
 	
 	public SensorBase()
@@ -85,6 +85,16 @@ public class SensorBase extends Subsystem {
 //    {
 //    	return pdp.getCurrent(2);
 //    }
+    
+    public Encoder getElbowEncoder()
+    {
+    	return innerEncoder;
+    }
+    
+    public Encoder getWristEncoder()
+    {
+    	return outerEncoder;
+    }
     
     //"elbow" angle
     public double getInnerEncoderVal()

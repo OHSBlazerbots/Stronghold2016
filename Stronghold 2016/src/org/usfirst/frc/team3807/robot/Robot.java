@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		CommandBase.init();
 		
-		auto = new Auto();
+		//auto = new Auto();
 		
 		//auto = new Auto();
 		autoChooser= new SendableChooser();
@@ -59,7 +59,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().add(auto);
+		Scheduler.getInstance().add(autonomousCommand);
 			Scheduler.getInstance().run();
 	}
 

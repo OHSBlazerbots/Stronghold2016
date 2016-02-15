@@ -4,6 +4,8 @@ import org.usfirst.frc.team3807.robot.OI;
 import org.usfirst.frc.team3807.robot.RobotMap;
 import org.usfirst.frc.team3807.robot.subsystems.Arm;
 import org.usfirst.frc.team3807.robot.subsystems.Chassis;
+import org.usfirst.frc.team3807.robot.subsystems.PIDArmElbow;
+import org.usfirst.frc.team3807.robot.subsystems.PIDArmWrist;
 import org.usfirst.frc.team3807.robot.subsystems.SensorBase;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -23,6 +25,8 @@ public abstract class CommandBase extends Command {
     public static SensorBase  sensorBase;
     public static Arm arm;
     public static OI oi;
+    public static PIDArmElbow PIDElbow;
+    public static PIDArmWrist PIDWrist;
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -34,6 +38,8 @@ public abstract class CommandBase extends Command {
         chassis = new Chassis(RobotMap.FRONT_LEFT, RobotMap.FRONT_RIGHT, RobotMap.BACK_LEFT, RobotMap.BACK_RIGHT);
         sensorBase = new SensorBase();
         arm = new Arm(RobotMap.ELBOW_MOTOR, RobotMap.WRIST_MOTOR);
+        PIDElbow = new PIDArmElbow(.1, .001, 0);
+        PIDWrist = new PIDArmWrist(.1, .001, 0);
         //OI always instantiated LAST
         oi = new OI();
 
