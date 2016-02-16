@@ -20,6 +20,7 @@ public class OI {
 	private static Joystick joystick = new Joystick(RobotMap.JOYSTICK_PORT);
 	private static Joystick coDriver1 = new Joystick(RobotMap.CODRIVER_JOYSTICK_PORT);
 	private static Joystick coDriver2 = new Joystick(RobotMap.CODRIVER_JOYSTICK_PORT2);
+	private static Joystick xBoxCoDriver = new Joystick(RobotMap.XBOX_CONTROLLER);
 	private final JoystickButton armMotor,goToAngle90;
 	
 	public OI() {
@@ -28,8 +29,8 @@ public class OI {
 		//armMotor.whileHeld(new RunArmWhenPressed(.25));
 		//armMotor.whenReleased(new RunArmWhenPressed(0));
 		
-		goToAngle90 = new JoystickButton(joystick, 12);
-		goToAngle90.whenPressed(new GoToAngle(10));
+		goToAngle90 = new JoystickButton(coDriver2, 10);
+		goToAngle90.whileHeld(new GoToAngle(-45));
 	
     }
 	
@@ -47,5 +48,10 @@ public class OI {
 	public static Joystick getCoDriverJoystick2()
 	{
 		return coDriver2;
+	}
+	
+	public static Joystick getXBoxController()
+	{
+		return xBoxCoDriver;
 	}
 }

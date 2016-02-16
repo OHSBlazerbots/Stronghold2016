@@ -23,7 +23,7 @@ public abstract class CommandBase extends Command {
     
     public static Chassis chassis;
     public static SensorBase  sensorBase;
-    public static Arm arm;
+    //public static Arm arm;
     public static OI oi;
     public static PIDArmElbow PIDElbow;
     public static PIDArmWrist PIDWrist;
@@ -37,10 +37,12 @@ public abstract class CommandBase extends Command {
         
         chassis = new Chassis(RobotMap.FRONT_LEFT, RobotMap.FRONT_RIGHT, RobotMap.BACK_LEFT, RobotMap.BACK_RIGHT);
         sensorBase = new SensorBase();
-        arm = new Arm(RobotMap.ELBOW_MOTOR, RobotMap.WRIST_MOTOR);
+        //arm = new Arm(RobotMap.ELBOW_MOTOR, RobotMap.WRIST_MOTOR);
         PIDElbow = new PIDArmElbow(.1, .001, 0);
+        PIDElbow.enable();
         PIDWrist = new PIDArmWrist(.1, .001, 0);
-        //OI always instantiated LAST
+        
+        //OI always instantiated LAST!!!
         oi = new OI();
 
     }

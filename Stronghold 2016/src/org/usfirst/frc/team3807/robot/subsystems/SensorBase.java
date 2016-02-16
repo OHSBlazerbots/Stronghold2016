@@ -18,8 +18,8 @@ public class SensorBase extends Subsystem {
 
 	private BuiltInAccelerometer bia;
 	private PowerDistributionPanel pdp;
-	private Encoder innerEncoder, outerEncoder;
-	double innerAngle, outerAngle;
+	private Encoder elbowEncoder, wristEncoder;
+	double elbowAngle, wristAngle;
 	
 	public SensorBase()
 	{
@@ -27,12 +27,13 @@ public class SensorBase extends Subsystem {
 		pdp = new PowerDistributionPanel();
 		
 		//creates encoder
-		if(RobotMap.INNER_ENCODER_A != -1 && RobotMap.INNER_ENCODER_B != -1 &&
-				RobotMap.OUTER_ENCODER_A != -1 && RobotMap.OUTER_ENCODER_B != -1){
-		innerEncoder = new Encoder(RobotMap.INNER_ENCODER_A,RobotMap.INNER_ENCODER_B);
-		outerEncoder = new Encoder(RobotMap.OUTER_ENCODER_A,RobotMap.OUTER_ENCODER_B);
-		innerAngle = innerEncoder.get();
-		outerAngle = outerEncoder.get();
+		if(RobotMap.ELBOW_ENCODER_A != -1 && RobotMap.ELBOW_ENCODER_B != -1 &&
+				RobotMap.WRIST_ENCODER_A != -1 && RobotMap.WRIST_ENCODER_B != -1)
+		{
+			elbowEncoder = new Encoder(RobotMap.ELBOW_ENCODER_A,RobotMap.ELBOW_ENCODER_B);
+			wristEncoder = new Encoder(RobotMap.WRIST_ENCODER_A,RobotMap.WRIST_ENCODER_B);
+			elbowAngle = elbowEncoder.get();
+			wristAngle = wristEncoder.get();
 		}
 	}
 	
@@ -59,7 +60,7 @@ public class SensorBase extends Subsystem {
     	return bia.getZ();
     }
     
-//    //returns pdp current
+/*//    //returns pdp current
 //    public double getTotalPDPCurrent()
 //    {
 //    	return pdp.getTotalCurrent();
@@ -85,67 +86,67 @@ public class SensorBase extends Subsystem {
 //    {
 //    	return pdp.getCurrent(2);
 //    }
-    
+*/    
+   
     public Encoder getElbowEncoder()
     {
-    	return innerEncoder;
+    	return elbowEncoder;
     }
     
     public Encoder getWristEncoder()
     {
-    	return outerEncoder;
+    	return wristEncoder;
     }
     
     //"elbow" angle
-    public double getInnerEncoderVal()
+    public double getElbowEncoderVal()
     {
-    	if(innerEncoder == null)
+    	if(elbowEncoder == null)
     		return 0; 
-    	return -innerEncoder.get();
+    	return -elbowEncoder.get();
     }
     
     //"wrist" angle
-    public double getOuterEncoderVal()
+    public double getWristEncoderVal()
     {
-    	if(outerEncoder == null)
+    	if(wristEncoder == null)
     		return 0;
-    	return -outerEncoder.get();
+    	return -wristEncoder.get();
     }
     
-    
      //Must be in radians!!!! (*(PI/180))
-    public double getInnerAngle()
+    public double getElbowAngle()
     {
-    	return ((2*Math.PI)/497) * getInnerEncoderVal();
+    	return ((2*Math.PI)/497) * getElbowEncoderVal();
     }
     
     //returns the outer angle in radians
-    public double getOuterAngle()
+    public double getWristAngle()
     {
-    	return ((2*Math.PI)/497) * getOuterEncoderVal();
+    	return ((2*Math.PI)/497) * getWristEncoderVal();
     }
     
-    public double getInnerDegrees()
+    public double getElbowDegrees()
     {
-    	return getInnerAngle() * (180/Math.PI);
+    	return getElbowAngle() * (180/Math.PI);
     }
     
-    public double getOuterDegrees()
+    public double getWristDegrees()
     {
-    	return getOuterAngle() * (180/Math.PI);
+    	return getWristAngle() * (180/Math.PI);
     }
     
   //checks to see if the arm goes outside of the 15" limit
   	public boolean perimeterChecker(){
   		
-  		double angleInner = getInnerAngle();
-  		double angleOuter = getOuterAngle();
+  		double angleElbow = getElbowAngle();
+  		double angleWrist = getWristAngle();
   		
   		//if greater than 120 degrees
-  		if(angleInner >= (2*Math.PI/3))
+  		if(angleElbow >= (2*Math.PI/3))
   			return true;
   		//if outside of perimeter (See math notes)
-  		else if(30*Math.sin(angleInner-(Math.PI/2)) + (15*Math.cos(angleInner-angleOuter)) > 15)
+  		else if(30*Math.sin(angleElbow-(Math.PI/2)) + (15*Math.cos(angleElbow-angleWrist)) > 15)
   			return true;
   		
   		return false;
@@ -167,10 +168,10 @@ public class SensorBase extends Subsystem {
 //    	SmartDashboard.putDouble("Motor Right Back Current", getMotorCurrentRightBack());
 //    	SmartDashboard.putDouble("Motor Left Back Current", getMotorCurrentLeftBack());
     	
-    	SmartDashboard.putDouble("Inner Encoder", getInnerEncoderVal());
-    	SmartDashboard.putDouble("Outer Encoder", getOuterEncoderVal());
-    	SmartDashboard.putDouble("Inner Angle (elbow)", getInnerDegrees());
-    	SmartDashboard.putDouble("Outer Angle (wrist)", getOuterDegrees());
+    	SmartDashboard.putDouble("Elbow Encoder", getElbowEncoderVal());
+    	SmartDashboard.putDouble("Wrist Encoder", getWristEncoderVal());
+    	SmartDashboard.putDouble("Elbow Angle", getElbowDegrees());
+    	SmartDashboard.putDouble("Wrist Angle", getWristDegrees());
     	SmartDashboard.putBoolean("Outside 15?", perimeterChecker());
     }
     

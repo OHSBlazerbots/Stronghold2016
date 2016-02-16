@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3807.robot;
 
+import edu.wpi.first.wpilibj.CANTalon;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -19,13 +21,25 @@ public class RobotMap {
 	public static int ELBOW_MOTOR = 3;  //inside
 	
 	//IDs for the joysticks
+	public static int XBOX_CONTROLLER = 1; 
 	public static int CODRIVER_JOYSTICK_PORT = 2;
 	public static int CODRIVER_JOYSTICK_PORT2= 3; 
 	public static int JOYSTICK_PORT = 0;
 	
 	//DIO ports 
-	public static int INNER_ENCODER_A= 0;
-	public static int INNER_ENCODER_B= 1;
-	public static int OUTER_ENCODER_A= 2;
-	public static int OUTER_ENCODER_B = 3;
+	public static int ELBOW_ENCODER_A= 0;
+	public static int ELBOW_ENCODER_B= 1;
+	public static int WRIST_ENCODER_A= 2;
+	public static int WRIST_ENCODER_B = 3;
+	
+	//arm talons
+	public static CANTalon ARM_ELBOW = new CANTalon(ELBOW_MOTOR);
+	public static CANTalon ARM_WRIST = new CANTalon(WRIST_MOTOR);
+	
+	//chassis talons
+	public static CANTalon FRONT_LEFT_TALON = new CANTalon(FRONT_LEFT);
+	public static CANTalon FRONT_RIGHT_TALON = new CANTalon(FRONT_RIGHT);
+	public static CANTalon BACK_LEFT_TALON = new CANTalon(BACK_LEFT);
+	public static CANTalon BACK_RIGHT_TALON = new CANTalon(BACK_RIGHT);
+	
 }

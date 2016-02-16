@@ -8,7 +8,15 @@ package org.usfirst.frc.team3807.robot;
 
 import org.usfirst.frc.team3807.robot.commands.Auto;
 import org.usfirst.frc.team3807.robot.commands.CommandBase;
+import org.usfirst.frc.team3807.robot.commands.auto.Cheval;
+import org.usfirst.frc.team3807.robot.commands.auto.Drawbridge;
 import org.usfirst.frc.team3807.robot.commands.auto.LowBar;
+import org.usfirst.frc.team3807.robot.commands.auto.Moat;
+import org.usfirst.frc.team3807.robot.commands.auto.Portcullis;
+import org.usfirst.frc.team3807.robot.commands.auto.Ramparts;
+import org.usfirst.frc.team3807.robot.commands.auto.RockWall;
+import org.usfirst.frc.team3807.robot.commands.auto.RoughTerrain;
+import org.usfirst.frc.team3807.robot.commands.auto.SallyPort;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -37,15 +45,28 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		CommandBase.init();
 		
-		//auto = new Auto();
+		auto = new Auto();
 		
 		//auto = new Auto();
 		autoChooser= new SendableChooser();
 		
 		//add autoCommand options here:
 		autoChooser.addDefault("Default", new Auto());
+		
 		//autoChooser.addObject(name, object);
 		autoChooser.addObject("Low Bar", new LowBar());
+		autoChooser.addObject("Rough Terrain", new RoughTerrain());
+		
+		//not done yet...
+		//autoChooser.addObject("Cheval", new Cheval());
+		//autoChooser.addObject("Drawbridge", new Drawbridge());
+		//autoChooser.addObject("Moat", new Moat());
+		//autoChooser.addObject("Portcullis", new Portcullis());
+		//autoChooser.addObject("Ramparts", new Ramparts());
+		//autoChooser.addObject("Rock Wall", new RockWall());
+		//autoChooser.addObject("Sally Port", new SallyPort());
+
+		//puts choices to SmartDashboard
 		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
 	}
 
