@@ -9,6 +9,7 @@ import org.usfirst.frc.team3807.robot.subsystems.PIDArmWrist;
 import org.usfirst.frc.team3807.robot.subsystems.SensorBase;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -38,9 +39,17 @@ public abstract class CommandBase extends Command {
         chassis = new Chassis(RobotMap.FRONT_LEFT, RobotMap.FRONT_RIGHT, RobotMap.BACK_LEFT, RobotMap.BACK_RIGHT);
         sensorBase = new SensorBase();
         //arm = new Arm(RobotMap.ELBOW_MOTOR, RobotMap.WRIST_MOTOR);
-        PIDElbow = new PIDArmElbow(.1, .001, 0);
+       
+        //DONT FORGET TO .enable() ANY SUBSYSTEM WITH PID!!!!!!!!!!!!!!!!!!
+        PIDElbow = new PIDArmElbow(.055, 0, 0);
         PIDElbow.enable();
-        PIDWrist = new PIDArmWrist(.1, .001, 0);
+        PIDElbow.setAbsoluteTolerance(4);
+        SmartDashboard.putInt("Manual Elbow Angle", 0);
+
+        PIDWrist = new PIDArmWrist(.05, .001, 0);
+        PIDWrist.enable();
+        PIDWrist.setAbsoluteTolerance(.5);
+        SmartDashboard.putInt("Manual Wrist Angle", 0);
         
         //OI always instantiated LAST!!!
         oi = new OI();

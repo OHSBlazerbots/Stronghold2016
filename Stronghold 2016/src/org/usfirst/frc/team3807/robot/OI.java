@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3807.robot;
 
-import org.usfirst.frc.team3807.robot.commands.GoToAngle;
+import org.usfirst.frc.team3807.robot.commands.DriveArmWithJoystick;
+import org.usfirst.frc.team3807.robot.commands.GoToAngleWrist;
+import org.usfirst.frc.team3807.robot.commands.MoveArm;
 import org.usfirst.frc.team3807.robot.commands.RunArmWhenPressed;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,7 +23,7 @@ public class OI {
 	private static Joystick coDriver1 = new Joystick(RobotMap.CODRIVER_JOYSTICK_PORT);
 	private static Joystick coDriver2 = new Joystick(RobotMap.CODRIVER_JOYSTICK_PORT2);
 	private static Joystick xBoxCoDriver = new Joystick(RobotMap.XBOX_CONTROLLER);
-	private final JoystickButton armMotor,goToAngle90;
+	private final JoystickButton armMotor,goToAngle90, driveArm, angleCheval, portcullis1, zero, portcullis2, zeroZero;
 	
 	public OI() {
 		//armMotor used to test the motor encoder
@@ -29,8 +31,26 @@ public class OI {
 		//armMotor.whileHeld(new RunArmWhenPressed(.25));
 		//armMotor.whenReleased(new RunArmWhenPressed(0));
 		
+		driveArm = new JoystickButton(coDriver1, 1);
+		driveArm.whileHeld(new DriveArmWithJoystick());
+		
 		goToAngle90 = new JoystickButton(coDriver2, 10);
-		goToAngle90.whileHeld(new GoToAngle(-45));
+		goToAngle90.whenPressed(new MoveArm(90,90));
+		
+		angleCheval = new JoystickButton(coDriver2, 9);
+		angleCheval.whenPressed(new MoveArm(0, 200));
+		
+		portcullis1 = new JoystickButton(coDriver2, 7);
+		portcullis1.whenPressed(new MoveArm(0, 250));
+		
+		portcullis2 = new JoystickButton(coDriver2, 8);
+		portcullis2.whenPressed(new MoveArm(90, 270));
+		
+		zero = new JoystickButton(coDriver2, 6);
+		zero.whenPressed(new MoveArm(5, 10));
+		
+		zeroZero = new JoystickButton(coDriver2, 11);
+		zeroZero.whenPressed(new MoveArm(10,0));
 	
     }
 	

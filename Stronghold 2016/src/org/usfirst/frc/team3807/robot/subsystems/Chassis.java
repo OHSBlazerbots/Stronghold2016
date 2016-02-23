@@ -36,7 +36,7 @@ public class Chassis extends Subsystem {
 
 	// getting user input with joysticks
 	public void driveWithJoystick(Joystick joystick) {
-		double turn = -joystick.getZ();
+		double turn = joystick.getZ();
 		// Drive is the y
 		double move = joystick.getY();
 		// if (drive != null) {
