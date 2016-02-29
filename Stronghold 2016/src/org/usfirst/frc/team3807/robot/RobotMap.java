@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 public class RobotMap {
 
 	//IDs for the chassis wheels, CAN
-	public static int FRONT_LEFT = 8;
+	public static int FRONT_LEFT = 8; 
 	public static int FRONT_RIGHT = 4;
 	public static int BACK_LEFT = 7;
 	public static int BACK_RIGHT = 5;

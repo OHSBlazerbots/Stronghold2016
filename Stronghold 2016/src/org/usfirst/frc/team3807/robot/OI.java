@@ -31,24 +31,32 @@ public class OI {
 		//armMotor.whileHeld(new RunArmWhenPressed(.25));
 		//armMotor.whenReleased(new RunArmWhenPressed(0));
 		
+		
+		//drives the arm when button 1 is held
 		driveArm = new JoystickButton(coDriver1, 1);
 		driveArm.whileHeld(new DriveArmWithJoystick());
 		
+		//when you hit button 10 on JoyStick 2, both the wrist arm and elbow arm go to 90 degrees by PID
 		goToAngle90 = new JoystickButton(coDriver2, 10);
 		goToAngle90.whenPressed(new MoveArm(90,90));
 		
+		//when you hit button 9 on JoyStick 2, the wrist arm moves to 200 degrees by PID
 		angleCheval = new JoystickButton(coDriver2, 9);
 		angleCheval.whenPressed(new MoveArm(0, 200));
 		
+		//when you hit button 7 on JoyStick 2, the wrist arm moves to 250 degrees by PID
 		portcullis1 = new JoystickButton(coDriver2, 7);
 		portcullis1.whenPressed(new MoveArm(0, 250));
 		
+		//when you hit the button 8 on JoyStick 2, the eblow arm moves to 90 degrees and wrist arm goes to 270 degrees
 		portcullis2 = new JoystickButton(coDriver2, 8);
 		portcullis2.whenPressed(new MoveArm(90, 270));
 		
+		//when you hit the button 6 on JoyStick 2,  
 		zero = new JoystickButton(coDriver2, 6);
-		zero.whenPressed(new MoveArm(5, 10));
+		zero.whenPressed(new MoveArm(40, 10));
 		
+		//sets the elbow arm to 10 degrees relative to the ground (0 degrees relative to the start)
 		zeroZero = new JoystickButton(coDriver2, 11);
 		zeroZero.whenPressed(new MoveArm(10,0));
 	
@@ -59,12 +67,12 @@ public class OI {
 	{
 		return joystick;
 	}
-	
+	//returns the codriver joystick
 	public static Joystick getCoDriverJoystick1()
 	{
 		return coDriver1;
 	}
-	
+	//
 	public static Joystick getCoDriverJoystick2()
 	{
 		return coDriver2;
