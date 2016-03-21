@@ -1,15 +1,18 @@
 package org.usfirst.frc.team3807.robot.subsystems;
 
 import org.usfirst.frc.team3807.robot.RobotMap;
+import org.usfirst.frc.team3807.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Holds all sensors, performs appropriate calculations, and returns values to SmartDashboard.
  */
 public class SensorBase extends Subsystem {
     
@@ -20,19 +23,26 @@ public class SensorBase extends Subsystem {
 	private PowerDistributionPanel pdp;
 	private Encoder elbowEncoder, wristEncoder;
 	double elbowAngle, wristAngle;
+	DigitalInput hallEffect;
 	
 	public SensorBase()
 	{
 		bia = new BuiltInAccelerometer();
 		pdp = new PowerDistributionPanel();
+		hallEffect = RobotMap.HE;
 		
 		//creates encoder
-		if(RobotMap.ELBOW_ENCODER_A != -1 && RobotMap.ELBOW_ENCODER_B != -1 &&
-				RobotMap.WRIST_ENCODER_A != -1 && RobotMap.WRIST_ENCODER_B != -1)
+		if(RobotMap.ELBOW_ENCODER_A != -1 && RobotMap.ELBOW_ENCODER_B != -1)
 		{
 			elbowEncoder = new Encoder(RobotMap.ELBOW_ENCODER_A,RobotMap.ELBOW_ENCODER_B);
-			wristEncoder = new Encoder(RobotMap.WRIST_ENCODER_A,RobotMap.WRIST_ENCODER_B);
+			
 			elbowAngle = elbowEncoder.get();
+			
+		}
+		
+		if(RobotMap.WRIST_ENCODER_A != -1 && RobotMap.WRIST_ENCODER_B != -1)
+		{
+			wristEncoder = new Encoder(RobotMap.WRIST_ENCODER_A,RobotMap.WRIST_ENCODER_B);
 			wristAngle = wristEncoder.get();
 		}
 	}
@@ -117,7 +127,12 @@ public class SensorBase extends Subsystem {
      //Must be in radians!!!! (*(PI/180))
     public double getElbowAngle()
     {
-    	return ((2*Math.PI)/497) * getElbowEncoderVal();
+    	double pot_raw = CommandBase.arm.armTalon.getAnalogInRaw();
+    	double ratio = 90.0 / 552.0;
+    	double adjustment = -12.0;
+    	
+    	return pot_raw*ratio + adjustment;
+    	//return ((2*Math.PI)/497) * getElbowEncoderVal();
     }
     
     //returns the outer angle in radians
@@ -168,11 +183,18 @@ public class SensorBase extends Subsystem {
 //    	SmartDashboard.putDouble("Motor Right Back Current", getMotorCurrentRightBack());
 //    	SmartDashboard.putDouble("Motor Left Back Current", getMotorCurrentLeftBack());
     	
-    	SmartDashboard.putDouble("Elbow Encoder", getElbowEncoderVal());
-    	SmartDashboard.putDouble("Wrist Encoder", getWristEncoderVal());
-    	SmartDashboard.putDouble("Elbow Angle", getElbowDegrees());
-    	SmartDashboard.putDouble("Wrist Angle", getWristDegrees());
-    	SmartDashboard.putBoolean("Outside 15?", perimeterChecker());
+    	//SmartDashboard.putDouble("Elbow Encoder", getElbowEncoderVal());
+    	//SmartDashboard.putDouble("Wrist Encoder", getWristEncoderVal());
+    	//SmartDashboard.putDouble("Elbow Angle", getElbowDegrees());
+    	//SmartDashboard.putDouble("Wrist Angle", getWristDegrees());
+    	
+    	//SmartDashboard.putBoolean("Outside 15?", perimeterChecker());
+    	//SmartDashboard.putDouble("Elbow Angle", CommandBase.arm.calcAngle(RobotMap.armEncoder.get()));
+    	//SmartDashboard.putDouble("Wrist Encoder", CommandBase.PIDWrist.getEncoder().get());
+    	//SmartDashboard.putDouble("Wrist Angle", CommandBase.PIDWrist.getPosition());
+    	SmartDashboard.putBoolean("Hall Effect", hallEffect.get()); //Returns the value of a hall effect sensor to SmartDashboard
+//    	CameraServer.getInstance().startAutomaticCapture("cam4");
+    	//CameraServer.getInstance().startAutomaticCapture("cam0");
     }
     
     

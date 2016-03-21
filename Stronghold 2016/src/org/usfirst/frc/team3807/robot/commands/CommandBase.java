@@ -2,10 +2,11 @@ package org.usfirst.frc.team3807.robot.commands;
 
 import org.usfirst.frc.team3807.robot.OI;
 import org.usfirst.frc.team3807.robot.RobotMap;
-import org.usfirst.frc.team3807.robot.subsystems.Arm;
 import org.usfirst.frc.team3807.robot.subsystems.Chassis;
-import org.usfirst.frc.team3807.robot.subsystems.PIDArmElbow;
+//import org.usfirst.frc.team3807.robot.subsystems.PIDArmElbow;
 import org.usfirst.frc.team3807.robot.subsystems.PIDArmWrist;
+import org.usfirst.frc.team3807.robot.subsystems.PotArm;
+//import org.usfirst.frc.team3807.robot.subsystems.PotArm;
 import org.usfirst.frc.team3807.robot.subsystems.SensorBase;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -26,9 +27,14 @@ public abstract class CommandBase extends Command {
     public static SensorBase  sensorBase;
     //public static Arm arm;
     public static OI oi;
-    public static PIDArmElbow PIDElbow;
+    
+    //OLD ARM
+    //public static PIDArmElbow PIDElbow;
     public static PIDArmWrist PIDWrist;
-
+    
+    //NEW ARM
+    public static PotArm arm;
+    
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
@@ -38,18 +44,27 @@ public abstract class CommandBase extends Command {
         
         chassis = new Chassis(RobotMap.FRONT_LEFT, RobotMap.FRONT_RIGHT, RobotMap.BACK_LEFT, RobotMap.BACK_RIGHT);
         sensorBase = new SensorBase();
+        
+        //NEW ARM
+        arm = new PotArm(0.065, 0, 0.001);
+        arm.enable();
+        arm.setSetpoint(CommandBase.sensorBase.getElbowAngle());
+        SmartDashboard.putInt("Manual Arm Elbow", 0);
+        
         //arm = new Arm(RobotMap.ELBOW_MOTOR, RobotMap.WRIST_MOTOR);
        
+        //OLD ARM
         //DONT FORGET TO .enable() ANY SUBSYSTEM WITH PID!!!!!!!!!!!!!!!!!!
-        PIDElbow = new PIDArmElbow(.055, 0, 0);
-        PIDElbow.enable();
-        PIDElbow.setAbsoluteTolerance(4);
-        SmartDashboard.putInt("Manual Elbow Angle", 0);
+//        PIDElbow = new PIDArmElbow(.055, 0, 0);
+//        PIDElbow.enable();
+//        PIDElbow.setAbsoluteTolerance(4);
+
 
         PIDWrist = new PIDArmWrist(.05, .001, 0);
         PIDWrist.enable();
         PIDWrist.setAbsoluteTolerance(.5);
         SmartDashboard.putInt("Manual Wrist Angle", 0);
+        
         
         //OI always instantiated LAST!!!
         oi = new OI();

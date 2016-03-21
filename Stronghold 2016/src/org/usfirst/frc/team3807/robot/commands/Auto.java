@@ -11,7 +11,7 @@ public class Auto extends CommandGroup {
     public  Auto() {
 //        addSequential(new StrafeRight(0, 0));
 //        addSequential(new WaitCommand(1));
-        addSequential(new HaltRobot());
+       // addSequential(new HaltRobot());
 //        
 //        addSequential(new WaitCommand(1));
 //        addSequential(new ForwardBack(.25));
