@@ -7,6 +7,8 @@ import org.usfirst.frc.team3807.robot.commands.ElbowPlus;
 import org.usfirst.frc.team3807.robot.commands.GoToAngleElbow;
 import org.usfirst.frc.team3807.robot.commands.MoveArm;
 import org.usfirst.frc.team3807.robot.commands.RunArmWhenPressed;
+import org.usfirst.frc.team3807.robot.commands.WristMinus;
+import org.usfirst.frc.team3807.robot.commands.WristPlus;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -27,7 +29,7 @@ public class OI {
 	private static Joystick coDriver2 = new Joystick(RobotMap.CODRIVER_JOYSTICK_PORT2);
 	private static Joystick xBoxCoDriver = new Joystick(RobotMap.XBOX_CONTROLLER);
 	private final JoystickButton armMotor,goToAngle90, driveArm, angleCheval, portcullis1, zero, portcullis2, zeroZero, upFive, downFive;
-	
+	private final JoystickButton wristUp, wristDown;
 	
 	public OI() {
 		//armMotor used to test the motor encoder
@@ -70,6 +72,12 @@ public class OI {
 		downFive = new JoystickButton(coDriver1, 2);
 		downFive.whenReleased(new ElbowMinus());
 	
+		wristUp = new JoystickButton(coDriver2, 3);
+		wristUp.whenReleased(new WristPlus());
+		
+		wristDown = new JoystickButton(coDriver2, 2);
+		wristDown.whenReleased(new WristMinus());
+		
     }
 	
 	//returns the driver joystick

@@ -39,9 +39,10 @@ public class Chassis extends Subsystem {
 
 	// getting user input with joysticks
 	public void driveWithJoystick(Joystick joystick) {
-		double turn = joystick.getZ();
+		double turn = joystick.getZ()*1;
 		// Drive is the y
-		double move = joystick.getY();
+		double move = joystick.getY()*1;
+		//the code above slows down the robot, remove *0.25 to bring it back to normal speed
 		// if (drive != null) {
 		// throttle determines speed
 		// drive(-move * (((joystick.getThrottle() + 1) * .5) + 1), -turn);
@@ -59,6 +60,7 @@ public class Chassis extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+	
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new DriveWithJoystick());
 	}

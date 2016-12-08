@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
+ * The RobotMap is a mapping from t+
+ * -he ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
@@ -14,13 +15,13 @@ public class RobotMap {
 
 	//IDs for the chassis wheels, CAN
 	public static int FRONT_LEFT = 8; 
-	public static int FRONT_RIGHT = 4;
+	public static int FRONT_RIGHT = 3;
 	public static int BACK_LEFT = 7;
 	public static int BACK_RIGHT = 5;
 	
 	//IDs for the arm motors
 	public static int WRIST_MOTOR = 2; //outside
-	//public static int ELBOW_MOTOR = 3;  //inside
+	public static int ELBOW_MOTOR = 4;  //inside
 	public static int POT_MOTOR = 3; 
 	
 	//IDs for the joysticks
@@ -33,13 +34,13 @@ public class RobotMap {
 	public static int ELBOW_ENCODER_A= -1;
 	public static int ELBOW_ENCODER_B= -1;
 	public static int WRIST_ENCODER_A= 2;
-	public static int WRIST_ENCODER_B = 3;
+	public static int WRIST_ENCODER_B = 4;
 	
 	public static int ARM_ENCODER_A = 0; //new elbow
 	public static int ARM_ENCODER_B = 1;
 	public static Encoder armEncoder = new Encoder(ARM_ENCODER_A, ARM_ENCODER_B);
 	
-	public static int HALL_EFFECT = 4;
+	public static int HALL_EFFECT = 3;
 	public static DigitalInput HE = new DigitalInput(HALL_EFFECT);
 	
 	//arm talons

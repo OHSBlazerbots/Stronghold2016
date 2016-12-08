@@ -47,7 +47,7 @@ public abstract class CommandBase extends Command {
         
         //NEW ARM
         arm = new PotArm(0.065, 0, 0.001);
-        arm.enable();
+        //arm.enable();
         arm.setSetpoint(CommandBase.sensorBase.getElbowAngle());
         SmartDashboard.putInt("Manual Arm Elbow", 0);
         
@@ -63,6 +63,7 @@ public abstract class CommandBase extends Command {
         PIDWrist = new PIDArmWrist(.05, .001, 0);
         PIDWrist.enable();
         PIDWrist.setAbsoluteTolerance(.5);
+        PIDWrist.setSetpoint(CommandBase.sensorBase.getWristAngle());
         SmartDashboard.putInt("Manual Wrist Angle", 0);
         
         

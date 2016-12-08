@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot {
 		
 		//cams.startAutomaticCapture();
 		cams.setQuality(50);
-		cams.startAutomaticCapture("cam4");
+		cams.startAutomaticCapture("cam0");
 		
 		//CameraServer.getInstance().startAutomaticCapture();
 	}
@@ -88,7 +88,8 @@ public class Robot extends IterativeRobot {
 		// sets up the chooser on SmartDashboard
 		autonomousCommand = (Command) autoChooser.getSelected();
 		//autonomousCommand.start();
-		Scheduler.getInstance().add(autonomousCommand);
+		//Scheduler.getInstance().add(autonomousCommand);
+		Scheduler.getInstance().add(new RockWall());
 	}
 
 	/**
